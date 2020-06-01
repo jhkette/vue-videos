@@ -1,5 +1,5 @@
-import api from '../../api/api'
-import qs from 'qs'
+import api from "../../api/api";
+import qs from "qs";
 
 // https://vuex.vuejs.org/guide/modules.html
 // FOr guide to VUEX
@@ -8,48 +8,42 @@ import qs from 'qs'
 // call an action function
 // that will call a mutation function
 const state = {
-    token: null
-
-}
+  token: null,
+};
 //WE CALL GETTERS TO RETRIEVE DATA
 const getters = {
-    // implicit return
-    // !!turns a value into a booolean  
-    isLoggedin: (state) =>  !!state.token     
-
-}
-// WE CALL ACTIONS TO CHANGE DATA
+  // implicit return
+  // !!turns a value into a booolean
+  isLoggedin: (state) => !!state.token,
+};
+// WE CALL ACTIONS TO CHANGE DATA BY CALLING MUTATIONS
 const actions = {
-    login: () => {
-        api.login()
-       
-
-    }, 
-    // we always use commit as opposed to idk mutation.setToken
-    logout: ({commit}) => {
-        commit('setToken', null)
-    },
-    finalizeLogin({commit}, hash){
-        const x = hash.replace('#', '')
-        const query = qs.parse(x)
-        commit('setToken', query.access_token)
-        
-    }
-
-}
+  login: () => {
+    api.login();
+  },
+  // we always use commit as opposed to idk mutation.setToken
+  logout: ({ commit }) => {
+    commit("setToken", null);
+  },
+  finalizeLogin({ commit }, hash) {
+    const x = hash.replace("#", "");
+    const query = qs.parse(x);
+    commit("setToken", query.access_token);
+  },
+};
 
 const mutations = {
-    setToken: (state,token ) => {
-        state.token = token
-    }
+  setToken: (state, token) => {
+    state.token = token;
+  },
+};
 
-}
-
-// using es6 syntax here 
+// using es6 syntax here
 // key value pairs are the same
+// we export all these objects as a default object. It gets hooked up to index.
 export default {
-    state,
-    getters,
-    actions,
-    mutations
-}
+  state,
+  getters,
+  actions,
+  mutations,
+};
