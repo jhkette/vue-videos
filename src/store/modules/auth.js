@@ -1,5 +1,7 @@
 import api from "../../api/api";
 import qs from "qs";
+import { router } from '../../main'
+
 
 // https://vuex.vuejs.org/guide/modules.html
 // FOr guide to VUEX
@@ -8,9 +10,11 @@ import qs from "qs";
 // call an action function
 // that will call a mutation function
 const state = {
-  token: null,
+  token: window.localStorage.getItem('imgur_token')
 };
 //WE CALL GETTERS TO RETRIEVE DATA
+// You can think of them as computed 
+// properties for stores. 
 const getters = {
   // implicit return
   // !!turns a value into a booolean
@@ -24,11 +28,14 @@ const actions = {
   // we always use commit as opposed to idk mutation.setToken
   logout: ({ commit }) => {
     commit("setToken", null);
+    window.localStorage.removeItem('imgur_token')
   },
   finalizeLogin({ commit }, hash) {
     const x = hash.replace("#", "");
     const query = qs.parse(x);
     commit("setToken", query.access_token);
+    window.localStorage.setItem('imgur_token', query.access_token)
+    router.push('/')
   },
 };
 
