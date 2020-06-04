@@ -20,6 +20,14 @@ export default {
       },
     });
   },
+
+  fetchFaves(token) {
+    return axios.get(`${ROOT_URL}/3/account/me/favorites`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
   upload(images, token) {
     const promises = Array.from(images).map((image) => {
       const formData = new FormData();

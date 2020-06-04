@@ -26,10 +26,10 @@ export default {
 }
 </script>
 <style scoped>
-.image-container{
-    column-count: 3;
-    column-gap: 0;
 
+.image-container{
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
 }
 img{
     max-width: 100%;
